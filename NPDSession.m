@@ -140,8 +140,12 @@ static void createColors()
 
 - (void)addSnippets
 {
+    NSString *home = NSHomeDirectory();
+    NSString *jsonFile =
+        [home stringByAppendingPathComponent:@"Library/Application Support/NetDebug/snips.json"];
+
     NSString *fileString =
-        [NSString stringWithContentsOfFile:@"/Users/vince/Desktop/snips.json"
+        [NSString stringWithContentsOfFile:jsonFile
                                   encoding:NSUTF8StringEncoding
                                      error:nil];
     
