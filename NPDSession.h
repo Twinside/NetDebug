@@ -21,9 +21,12 @@
     IBOutlet NSComboBox        *txtPort;
 
     NetworkSender              *connection;
+
+    NSMutableAttributedString  *logString;
 }
 
 - (void)addSnippets;
 
 - (IBAction)connectTo:(id)sender;
+- (IBAction)sendCommand:(id)sender;
 @end

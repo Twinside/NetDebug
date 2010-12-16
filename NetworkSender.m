@@ -58,6 +58,10 @@ static NSDictionary* portMapping()
     [output setDelegate:self];
 
     sendQueue = [[NSMutableArray alloc] initWithCapacity:10];
+    
+    [input scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [output scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    
     [input open];
     [output open];
     return self;
@@ -66,9 +70,15 @@ static NSDictionary* portMapping()
 - (void)dealloc
 {
     [input close];
-    [input release];
-
     [output close];
+    
+    [input removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [output removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    
+    [input setDelegate:nil];
+    [output setDelegate:nil];
+    
+    [input release];
     [output release];
 
     [sendQueue release];
@@ -106,18 +116,36 @@ static NSDictionary* portMapping()
 {
     if (theStream == input)
     {
+        NSUInteger readed;
+        NSString *received;
+
         switch ( streamEvent )
         {
         case NSStreamEventHasBytesAvailable:
             inputReady = YES;
+
+            readed = [input read:receiveBuffer
+                       maxLength:sizeof(receiveBuffer)
+                                  / sizeof(uint8_t) - 1];
+            receiveBuffer[ readed ] = '\0';
+
+            received =
+                [[NSString alloc] initWithBytes:receiveBuffer
+                                         length:readed
+                                       encoding:NSUTF8StringEncoding];
+
+            [textHandler receivedData:received];
+            [received release];
             break;
 
         case NSStreamEventEndEncountered:
             [textHandler endOfConnection:@"Connection terminated"];
+            NSLog(@"End of input stream");
             break;
 
         case NSStreamEventErrorOccurred:
             [textHandler connectionError:@"Error"];
+            NSLog(@"Error on input stream");
             break;
         }
     }
@@ -126,10 +154,10 @@ static NSDictionary* portMapping()
         switch ( streamEvent )
         {
         case NSStreamEventOpenCompleted:
-            outputReady = YES;
-            break;
-
-        case NSStreamEventErrorOccurred:
+            [textHandler
+                connectionInformation:@"Connection established\r\n"];
+            /* NO BREAK (intentional) */
+        case NSStreamEventHasSpaceAvailable:
             if ( [sendQueue count] > 0 )
             {
                 [self sendString:
@@ -137,6 +165,11 @@ static NSDictionary* portMapping()
                 [sendQueue removeObjectAtIndex:0];
             }
             else outputReady = YES;
+            break;
+
+        case NSStreamEventErrorOccurred:
+            outputReady = YES;
+            NSLog(@"Error on output stream");
             break;
         }
     }

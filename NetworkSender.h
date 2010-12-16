@@ -10,6 +10,7 @@
 
 @protocol TextReceiver<NSObject>
 - (void)receivedData:(NSString*)data;
+- (void)connectionInformation:(NSString*)info;
 - (void)endOfConnection:(NSString*)text;
 - (void)connectionError:(NSString*)errorText;
 @end
@@ -24,6 +25,8 @@
     NSMutableArray  *sendQueue;
 
     id<TextReceiver> textHandler;
+
+    uint8_t         receiveBuffer[2048];
 }
 
 - (id)initWithURL:(NSString*)url

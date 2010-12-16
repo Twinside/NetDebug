@@ -10,15 +10,89 @@
 #import "NetworkSnippet.h"
 #import "JSON.h"
 
+typedef enum ColorIndice_t
+{
+    ErrorColor,
+    SentColor,
+    ReceivedColor,
+    InfoColor,
+    ClockColor,
+    ProtocolBackgroundColor,
+
+    LastColor
+} ColorIndice;
+
+NSColor* textColors[LastColor] = { 0 };
+
+@interface NSMutableAttributedString (AppendString)
+- (void)appendString:(NSString*)str;
+- (void)appendString:(NSString*)str attributes:(NSDictionary*)dico;
+@end
+
+@implementation NSMutableAttributedString (AppendString)
+- (void)appendString:(NSString*)str
+{
+    NSMutableAttributedString    *astr =
+        [[NSMutableAttributedString alloc] initWithString:str];
+
+    [self appendAttributedString:astr];
+    [astr release];
+}
+
+- (void)appendString:(NSString*)str attributes:(NSDictionary*)dico
+{
+    NSMutableAttributedString    *astr =
+        [[NSMutableAttributedString alloc] initWithString:str
+                                               attributes:dico];
+
+    [self appendAttributedString:astr];
+    [astr release];
+}
+@end
+
+static inline void setTextColor( ColorIndice idx, int r, int g, int b )
+{
+    textColors[ idx ] = [NSColor colorWithDeviceRed:r / 255.0f
+                                              green:g / 255.0f
+                                               blue:b / 255.0f
+                                              alpha:1.0f];
+    [textColors[ idx ] retain];
+}
+
+static void createColors()
+{
+    static Boolean initialized = NO;
+
+    if (initialized) return;
+
+    setTextColor( ErrorColor    , 0xBA , 0x72 , 0x22 );
+    setTextColor( SentColor     , 0x7D , 0x95 , 0xAD );
+    setTextColor( ReceivedColor , 0x60 , 0x60 , 0x60 );
+    setTextColor( InfoColor     , 0x00 , 0x00 , 0x00 );
+    setTextColor( ClockColor    , 0x7D , 0x64 , 0xAF );
+    setTextColor( ProtocolBackgroundColor, 0xF3 , 0xF2 , 0xED );
+
+    initialized = YES;
+}
+
 @implementation NPDSession
 
 - (id)init
 {
     self = [super init];
     if (self) {
-        
+        logString =
+            [[NSMutableAttributedString alloc] initWithString:@""];
+        createColors();
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [connection release];
+    [logString release];
+    [super dealloc];
 }
 
 - (NSString *)windowNibName
@@ -29,6 +103,8 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    [txtDialogView
+        setBackgroundColor:textColors[ProtocolBackgroundColor]];
     [self addSnippets];
 }
 
@@ -100,6 +176,104 @@
 
 - (IBAction)connectTo:(id)sender
 {
-    
+    [connection release];
+    connection =
+        [[NetworkSender alloc]
+            initWithURL:[txtAdress stringValue]
+                andPort:[txtPort stringValue]];
+    [connection setTextReceiver:self];
+
+    [[self window]
+        setTitle:[NSString stringWithFormat:@""
+                            ,]];
+}
+
+- (void)appendUpdateLog:(NSString*)data
+              withSense:(NSString*)way
+               andColor:(NSColor*)color
+{
+    NSMutableAttributedString *acc =
+        [[NSMutableAttributedString alloc] initWithString:@"["];
+
+    /////////
+    // clock
+    /////////
+    NSDictionary *clockAttributes =
+        [NSDictionary
+            dictionaryWithObjectsAndKeys: textColors[ClockColor]
+                                , NSForegroundColorAttributeName
+                                , nil];
+
+    NSDate *currentDate = [NSDate date];
+    NSString *clockString =
+        [currentDate descriptionWithCalendarFormat:@"%H:%M:%S" 
+                                        timeZone:nil
+                                            locale:nil];
+
+    [acc appendString:clockString attributes:clockAttributes];
+    [acc appendString:@"] "];
+    [acc appendString:way];
+
+    ////////
+    // message formatting
+    ////////
+    NSDictionary *attr =
+        [NSDictionary
+            dictionaryWithObjectsAndKeys: color
+                                , NSForegroundColorAttributeName
+                                , nil];
+
+    [acc appendString:data attributes:attr];
+
+    [logString appendAttributedString:acc];
+    [txtDialogView setAttributedStringValue:logString];
+}
+
+- (IBAction)sendCommand:(id)sender
+{
+    NSString *val = [NSString stringWithFormat:@"%@\n",
+                                    [sender stringValue] ];
+    [connection sendData:val];
+    [self appendUpdateLog:val
+                withSense:@"> "
+                 andColor:textColors[ SentColor ]];
+    [sender setStringValue:@""];
+}
+
+- (void)connectionInformation:(NSString*)info
+{
+    [self appendUpdateLog:info
+                withSense:@"- "
+                 andColor:textColors[ InfoColor ]];
+}
+
+- (void)receivedData:(NSString*)data
+{
+    [self appendUpdateLog:data 
+                withSense:@"< "
+                 andColor:textColors[ ReceivedColor ]];
+}
+
+- (void)endOfConnection:(NSString*)text
+{
+    [self appendUpdateLog:@"End of connection\n"
+                withSense:@"- "
+                 andColor:textColors[InfoColor]];
+
+    [connection release];
+    connection = nil;
+}
+
+- (void)connectionError:(NSString*)errorText
+{
+    NSString *val = [NSString stringWithFormat:@"%@\n",
+                                    errorText ];
+    [self appendUpdateLog:val
+                withSense:@"! "
+                 andColor:textColors[ErrorColor]];
+
+    [connection release];
+    connection = nil;
 }
 @end
+
