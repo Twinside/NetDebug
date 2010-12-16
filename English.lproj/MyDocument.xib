@@ -13,7 +13,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="100064"/>
-			<integer value="100068"/>
+			<integer value="100069"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -616,7 +616,7 @@
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTextFieldCell" key="NSCell" id="280931182">
 																<int key="NSCellFlags">-1805517311</int>
-																<int key="NSCellFlags2">272629760</int>
+																<int key="NSCellFlags2">268435456</int>
 																<string key="NSContents"/>
 																<reference key="NSSupport" ref="566474469"/>
 																<reference key="NSControlView" ref="292191459"/>
@@ -1244,7 +1244,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="263035231"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{524, 743}, {181, 29}}</string>
+					<string>{{524, 593}, {181, 29}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAw84AAA</bytes>
@@ -1278,9 +1278,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{642, 474}, {507, 412}}</string>
+					<string>{{642, 324}, {507, 412}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{642, 474}, {507, 412}}</string>
+					<string>{{642, 324}, {507, 412}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>

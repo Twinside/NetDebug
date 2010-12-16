@@ -17,6 +17,7 @@
 		61E6EACD12A2D92E005A0C48 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E6EAC712A2D92E005A0C48 /* SBJsonParser.m */; };
 		61E6EACE12A2D92E005A0C48 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E6EAC912A2D92E005A0C48 /* SBJsonWriter.m */; };
 		61E6EB1812A2F44B005A0C48 /* SnippetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E6EB1712A2F44B005A0C48 /* SnippetView.m */; };
+		61ED7B7112BA69E3004572D1 /* messages.strings in Resources */ = {isa = PBXBuildFile; fileRef = 61ED7B7012BA69E3004572D1 /* messages.strings */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* NPDSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* NPDSession.m */; settings = {ATTRIBUTES = (); }; };
@@ -54,6 +55,8 @@
 		61E6EAC912A2D92E005A0C48 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		61E6EB1612A2F44B005A0C48 /* SnippetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnippetView.h; sourceTree = "<group>"; };
 		61E6EB1712A2F44B005A0C48 /* SnippetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnippetView.m; sourceTree = "<group>"; };
+		61ED7B6312BA27E8004572D1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/messages.strings; sourceTree = "<group>"; };
+		61ED7B7212BA69F0004572D1 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/messages.strings; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* NetDebug-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NetDebug-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* NetDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -141,6 +144,7 @@
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				1DDD58280DA1D0D100B32029 /* MyDocument.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+				61ED7B7012BA69E3004572D1 /* messages.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -226,6 +230,7 @@
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* MyDocument.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
+				61ED7B7112BA69E3004572D1 /* messages.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +287,15 @@
 				2A37F4BAFDCFA73011CA2CEA /* English */,
 			);
 			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		61ED7B7012BA69E3004572D1 /* messages.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				61ED7B6312BA27E8004572D1 /* English */,
+				61ED7B7212BA69F0004572D1 /* French */,
+			);
+			name = messages.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

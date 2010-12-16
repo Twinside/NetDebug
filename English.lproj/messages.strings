@@ -1,0 +1,10 @@
+/* 
+   messages.strings
+   NetDebug
+
+   Created by Vincent Berthoux on 16/12/10.
+   Copyright 2010 __MyCompanyName__. All rights reserved.
+ */
+"MsgConnectionError"="Connection error"
+"MsgConnectionEnded"="End of connection"
+"TitleConnected"="Connected on %@:%@"

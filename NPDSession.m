@@ -182,10 +182,10 @@ static void createColors()
             initWithURL:[txtAdress stringValue]
                 andPort:[txtPort stringValue]];
     [connection setTextReceiver:self];
-
+/*
     [[self window]
         setTitle:[NSString stringWithFormat:@""
-                            ,]];
+                            ,]]; // */
 }
 
 - (void)appendUpdateLog:(NSString*)data
