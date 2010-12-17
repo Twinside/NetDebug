@@ -30,9 +30,15 @@ static NSDictionary* portMapping()
 
 - (id)initWithURL:(NSString*)url
           andPort:(NSString*)portString
+         inBundle:(NSBundle*)invokingBundle
 {
     self = [super init];
     NSNumber *num = [portMapping() objectForKey:portString];
+    adress = url;
+    [adress retain];
+
+    instantiatingBundle = invokingBundle;
+    [instantiatingBundle retain];
 
     if (num == nil)
         port = [portString intValue];
@@ -64,6 +70,7 @@ static NSDictionary* portMapping()
     
     [input open];
     [output open];
+
     return self;
 }
 
@@ -82,6 +89,7 @@ static NSDictionary* portMapping()
     [output release];
 
     [sendQueue release];
+    [instantiatingBundle release];
 
     [super dealloc];
 }
@@ -111,6 +119,13 @@ static NSDictionary* portMapping()
     }
 }
 
+- (NSString*)localizedString:(NSString*)key
+{
+    return [instantiatingBundle  localizedStringForKey:key
+                                                 value:@"comment"
+                                                 table:@"messages"];
+}
+
 - (void)stream:(NSStream *)theStream
    handleEvent:(NSStreamEvent)streamEvent
 {
@@ -138,24 +153,31 @@ static NSDictionary* portMapping()
             [received release];
             break;
 
+
         case NSStreamEventEndEncountered:
-            [textHandler endOfConnection:@"Connection terminated"];
-            NSLog(@"End of input stream");
+            [textHandler
+                endOfConnection:[self localizedString:@"MsgConnectionEnded"]];
             break;
 
         case NSStreamEventErrorOccurred:
-            [textHandler connectionError:@"Error"];
-            NSLog(@"Error on input stream");
+            [textHandler
+                connectionError:[self localizedString:@"MsgConnectionError"]];
             break;
         }
     }
     else // must be output
     {
+        NSString *connectionString = nil;
+
         switch ( streamEvent )
         {
         case NSStreamEventOpenCompleted:
+            connectionString =
+                [NSString
+                    stringWithFormat:[self localizedString:@"MsgConnected"]
+                                    , adress, port];
             [textHandler
-                connectionInformation:@"Connection established\r\n"];
+                connectionInformation:connectionString];
             /* NO BREAK (intentional) */
         case NSStreamEventHasSpaceAvailable:
             if ( [sendQueue count] > 0 )

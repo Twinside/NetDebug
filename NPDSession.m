@@ -30,6 +30,7 @@ NSColor* textColors[LastColor] = { 0 };
 @end
 
 @implementation NSMutableAttributedString (AppendString)
+
 - (void)appendString:(NSString*)str
 {
     NSMutableAttributedString    *astr =
@@ -76,6 +77,8 @@ static void createColors()
 }
 
 @implementation NPDSession
+@synthesize isConnected;
+@synthesize connectionToggleString;
 
 - (id)init
 {
@@ -83,6 +86,12 @@ static void createColors()
     if (self) {
         logString =
             [[NSMutableAttributedString alloc] initWithString:@""];
+        isConnected = [[NSNumber alloc] initWithBool:NO];
+        connectionToggleString =
+            NSLocalizedStringFromTable(@"connect_toggle"
+                                      ,@"messages"
+                                       ,@"A comment");
+        [connectionToggleString retain];
         createColors();
     }
     return self;
@@ -184,12 +193,16 @@ static void createColors()
     connection =
         [[NetworkSender alloc]
             initWithURL:[txtAdress stringValue]
-                andPort:[txtPort stringValue]];
+                andPort:[txtPort stringValue]
+               inBundle:[NSBundle bundleForClass:[self class]]];
+
     [connection setTextReceiver:self];
-/*
-    [[self window]
-        setTitle:[NSString stringWithFormat:@""
-                            ,]]; // */
+    [self setIsConnected:[NSNumber numberWithBool:YES]];
+    [self setConnectionToggleString:NSLocalizedStringFromTable(@"disconnect_toggle"
+                                                              ,@"messages"
+                                                              ,@"A comment")];
+
+    [documentWindow setTitle:[txtAdress stringValue]];
 }
 
 - (void)appendUpdateLog:(NSString*)data
@@ -258,21 +271,29 @@ static void createColors()
                  andColor:textColors[ ReceivedColor ]];
 }
 
+- (void)disconnect
+{
+    [self setIsConnected:[NSNumber numberWithBool:NO]];
+    [self setConnectionToggleString:
+            NSLocalizedStringFromTable(@"connect_toggle"
+                                      ,@"messages"
+                                       ,@"A comment")];
+}
+
 - (void)endOfConnection:(NSString*)text
 {
-    [self appendUpdateLog:@"End of connection\n"
+    [self appendUpdateLog:text
                 withSense:@"- "
                  andColor:textColors[InfoColor]];
 
+    [self disconnect];
     [connection release];
     connection = nil;
 }
 
 - (void)connectionError:(NSString*)errorText
 {
-    NSString *val = [NSString stringWithFormat:@"%@\n",
-                                    errorText ];
-    [self appendUpdateLog:val
+    [self appendUpdateLog:errorText
                 withSense:@"! "
                  andColor:textColors[ErrorColor]];
 

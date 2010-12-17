@@ -17,6 +17,8 @@
 
 @interface NetworkSender : NSObject <NSStreamDelegate> {
     int             port;
+    NSString        *adress;
+    NSBundle        *instantiatingBundle;
 
     NSInputStream   *input;
     NSOutputStream  *output;
@@ -30,7 +32,8 @@
 }
 
 - (id)initWithURL:(NSString*)url
-          andPort:(NSString*)port;
+          andPort:(NSString*)port
+         inBundle:(NSBundle*)invokingBundle;
 - (void)dealloc;
 - (void)setTextReceiver:(id<TextReceiver>)receiver;
 

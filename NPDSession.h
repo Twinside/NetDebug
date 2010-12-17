@@ -20,13 +20,21 @@
     IBOutlet NSTextField       *txtAdress;
     IBOutlet NSComboBox        *txtPort;
 
+    IBOutlet NSWindow          *documentWindow;
+
     NetworkSender              *connection;
 
     NSMutableAttributedString  *logString;
+
+    @private NSNumber* isConnected;
+    @private NSString* connectionToggleString;
 }
 
 - (void)addSnippets;
 
 - (IBAction)connectTo:(id)sender;
 - (IBAction)sendCommand:(id)sender;
+
+@property(readwrite,assign) NSNumber* isConnected;
+@property(readwrite,assign) NSString* connectionToggleString;
 @end
