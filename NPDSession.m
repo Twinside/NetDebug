@@ -139,7 +139,7 @@ static void createColors()
         connectionToggleString =
             NSLocalizedStringFromTable(@"connect_toggle"
                                       ,@"messages"
-                                       ,@"A comment");
+                                      ,@"A comment");
         [connectionToggleString retain];
         createColors();
     }
@@ -274,20 +274,39 @@ static void createColors()
 
 - (IBAction)connectTo:(id)sender
 {
-    [connection release];
-    connection =
-        [[NetworkSender alloc]
-            initWithURL:[txtAdress stringValue]
-                andPort:[txtPort stringValue]
-               inBundle:[NSBundle bundleForClass:[self class]]];
+    // if we start connection
+    if ( ![isConnected boolValue] )
+    {
+        [connection release];
+        connection =
+            [[NetworkSender alloc]
+                initWithURL:[txtAdress stringValue]
+                    andPort:[txtPort stringValue]
+                inBundle:[NSBundle bundleForClass:[self class]]];
 
-    [connection setTextReceiver:self];
-    [self setIsConnected:[NSNumber numberWithBool:YES]];
-    [self setConnectionToggleString:NSLocalizedStringFromTable(@"disconnect_toggle"
-                                                              ,@"messages"
-                                                              ,@"A comment")];
+        [connection setTextReceiver:self];
+        [self setIsConnected:[NSNumber numberWithBool:YES]];
+        [self setConnectionToggleString:
+            NSLocalizedStringFromTable(@"disconnect_toggle"
+                                      ,@"messages"
+                                      ,@"A comment")];
 
-    [documentWindow setTitle:[txtAdress stringValue]];
+        [documentWindow setTitle:[txtAdress stringValue]];
+    }
+    else
+    {
+        [self connectionInformation:
+            NSLocalizedStringFromTable(@"MsgDisconnected"
+                                      ,@"messages"
+                                      ,@"A comment")];
+        [connection release];
+        connection = nil;
+        [self setIsConnected:[NSNumber numberWithBool:NO]];
+        [self setConnectionToggleString:
+            NSLocalizedStringFromTable(@"connect_toggle"
+                                      ,@"messages"
+                                      ,@"A comment")];
+    }
 }
 
 - (IBAction)sendCommand:(id)sender

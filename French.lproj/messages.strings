@@ -10,3 +10,4 @@
 "MsgConnected"="Connecté à %@:%i\n";
 "connect_toggle"="Connecter";
 "disconnect_toggle"="Déconnecter";
+"MsgDisconnected"="Déconnexion\n";
