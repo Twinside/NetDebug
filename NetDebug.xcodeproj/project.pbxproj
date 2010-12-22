@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD582C0DA1D0D100B32029 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* MyDocument.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
+		6181CFE512C216BF005AF97F /* NPDSessionWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6181CFE412C216BF005AF97F /* NPDSessionWindow.m */; };
 		61E6EA4512A135E3005A0C48 /* NetworkSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E6EA4412A135E3005A0C48 /* NetworkSender.m */; };
 		61E6EA4812A2B9D1005A0C48 /* NetworkSnippet.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E6EA4712A2B9D1005A0C48 /* NetworkSnippet.m */; };
 		61E6EACA12A2D92E005A0C48 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E6EAC112A2D92E005A0C48 /* NSObject+SBJSON.m */; };
@@ -39,6 +40,8 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		6181CFB712C20F9A005AF97F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		6181CFE312C216BF005AF97F /* NPDSessionWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPDSessionWindow.h; sourceTree = "<group>"; };
+		6181CFE412C216BF005AF97F /* NPDSessionWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPDSessionWindow.m; sourceTree = "<group>"; };
 		61E6EA4312A135E3005A0C48 /* NetworkSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkSender.h; sourceTree = "<group>"; };
 		61E6EA4412A135E3005A0C48 /* NetworkSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkSender.m; sourceTree = "<group>"; };
 		61E6EA4612A2B9D1005A0C48 /* NetworkSnippet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkSnippet.h; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 				61E6EA4712A2B9D1005A0C48 /* NetworkSnippet.m */,
 				61E6EB1612A2F44B005A0C48 /* SnippetView.h */,
 				61E6EB1712A2F44B005A0C48 /* SnippetView.m */,
+				6181CFE312C216BF005AF97F /* NPDSessionWindow.h */,
+				6181CFE412C216BF005AF97F /* NPDSessionWindow.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -252,6 +257,7 @@
 				61E6EACD12A2D92E005A0C48 /* SBJsonParser.m in Sources */,
 				61E6EACE12A2D92E005A0C48 /* SBJsonWriter.m in Sources */,
 				61E6EB1812A2F44B005A0C48 /* SnippetView.m in Sources */,
+				6181CFE512C216BF005AF97F /* NPDSessionWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

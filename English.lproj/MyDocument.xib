@@ -13,7 +13,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="100064"/>
-			<integer value="5"/>
+			<integer value="100069"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -682,15 +682,7 @@
 				<bool key="NSFilterRestrictsInsertion">YES</bool>
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 			</object>
-			<object class="NSCustomObject" id="7981182">
-				<string key="NSClassName">NPDSession</string>
-			</object>
 			<object class="NSUserDefaultsController" id="358740755">
-				<object class="NSMutableArray" key="NSDeclaredKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>lastUsedAdress</string>
-					<string>lastUsedPort</string>
-				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</object>
@@ -728,14 +720,6 @@
 						<reference key="destination" ref="1019637707"/>
 					</object>
 					<int key="connectionID">100066</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">snippetArray</string>
-						<reference key="source" ref="7981182"/>
-						<reference key="destination" ref="195992478"/>
-					</object>
-					<int key="connectionID">100098</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -786,86 +770,6 @@
 					<int key="connectionID">100109</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">connectTo:</string>
-						<reference key="source" ref="7981182"/>
-						<reference key="destination" ref="1063921509"/>
-					</object>
-					<int key="connectionID">100114</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">txtAdress</string>
-						<reference key="source" ref="7981182"/>
-						<reference key="destination" ref="493150610"/>
-					</object>
-					<int key="connectionID">100115</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">txtDialogView</string>
-						<reference key="source" ref="7981182"/>
-						<reference key="destination" ref="539668013"/>
-					</object>
-					<int key="connectionID">100116</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">txtMessage</string>
-						<reference key="source" ref="7981182"/>
-						<reference key="destination" ref="292191459"/>
-					</object>
-					<int key="connectionID">100117</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">txtPort</string>
-						<reference key="source" ref="7981182"/>
-						<reference key="destination" ref="641446366"/>
-					</object>
-					<int key="connectionID">100118</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">sendCommand:</string>
-						<reference key="source" ref="7981182"/>
-						<reference key="destination" ref="280931182"/>
-					</object>
-					<int key="connectionID">100119</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: isConnected</string>
-						<reference key="source" ref="292191459"/>
-						<reference key="destination" ref="7981182"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="292191459"/>
-							<reference key="NSDestination" ref="7981182"/>
-							<string key="NSLabel">enabled: isConnected</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">isConnected</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">100122</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">title: connectionToggleString</string>
-						<reference key="source" ref="395565188"/>
-						<reference key="destination" ref="7981182"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="395565188"/>
-							<reference key="NSDestination" ref="7981182"/>
-							<string key="NSLabel">title: connectionToggleString</string>
-							<string key="NSBinding">title</string>
-							<string key="NSKeyPath">connectionToggleString</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">100125</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.lastUsedAdress</string>
 						<reference key="source" ref="493150610"/>
@@ -909,6 +813,62 @@
 						</object>
 					</object>
 					<int key="connectionID">100149</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">txtPort</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="641446366"/>
+					</object>
+					<int key="connectionID">100150</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">txtAdress</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="493150610"/>
+					</object>
+					<int key="connectionID">100151</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">snippetArray</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="195992478"/>
+					</object>
+					<int key="connectionID">100152</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">txtDialogView</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="539668013"/>
+					</object>
+					<int key="connectionID">100153</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">txtMessage</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="292191459"/>
+					</object>
+					<int key="connectionID">100154</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">connectTo:</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="395565188"/>
+					</object>
+					<int key="connectionID">100155</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">sendCommand:</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="292191459"/>
+					</object>
+					<int key="connectionID">100156</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1080,11 +1040,6 @@
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">100097</int>
-						<reference key="object" ref="7981182"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">100102</int>
 						<reference key="object" ref="801877875"/>
 						<object class="NSMutableArray" key="children">
@@ -1246,7 +1201,6 @@
 					<string>100089.IBPluginDependency</string>
 					<string>100090.IBPluginDependency</string>
 					<string>100096.IBPluginDependency</string>
-					<string>100097.IBPluginDependency</string>
 					<string>100102.CustomClassName</string>
 					<string>100102.IBPluginDependency</string>
 					<string>100102.IBViewBoundsToFrameTransform</string>
@@ -1291,8 +1245,7 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABCBAAAw+oAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{586, 801}, {617, 0}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{599, 805}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1314,9 +1267,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{637, 254}, {541, 563}}</string>
+					<string>{{637, 242}, {541, 563}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{637, 254}, {541, 563}}</string>
+					<string>{{637, 242}, {541, 563}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>
@@ -1341,7 +1294,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">100149</int>
+			<int key="maxID">100156</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1354,11 +1307,15 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>connectTo:</string>
+							<string>loadSnippets:</string>
+							<string>openSnippetFile:</string>
 							<string>sendCommand:</string>
 							<string>sendSnippet:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1369,6 +1326,8 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>connectTo:</string>
+							<string>loadSnippets:</string>
+							<string>openSnippetFile:</string>
 							<string>sendCommand:</string>
 							<string>sendSnippet:</string>
 						</object>
@@ -1376,6 +1335,14 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">connectTo:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">loadSnippets:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">openSnippetFile:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
