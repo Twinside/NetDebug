@@ -30,10 +30,11 @@
     @private NSString* connectionToggleString;
 }
 
-- (void)addSnippets;
-
+- (IBAction)loadSnippets:(id)sender;
 - (IBAction)connectTo:(id)sender;
 - (IBAction)sendCommand:(id)sender;
+- (IBAction)sendSnippet:(id)sender;
+- (IBAction)openSnippetFile:(id)sender;
 
 @property(readwrite,assign) NSNumber* isConnected;
 @property(readwrite,assign) NSString* connectionToggleString;

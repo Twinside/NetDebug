@@ -12,23 +12,29 @@
 @implementation NPDNetworkSnippet
 @synthesize snippetName;
 @synthesize snippetText;
+@synthesize snippetId;
 
 + (id)snippetOfText:(NSString*)txt
             andName:(NSString*)name
+	  withIndex:(int)snipId
 {
     NPDNetworkSnippet *s =
         [[NPDNetworkSnippet alloc]
-                 initWithText:txt andName:name];
+                 initWithText:txt andName:name
+		    withIndex:snipId];
     
     return [s autorelease];
 }
 
-- (id)initWithText:(NSString *)txt andName:(NSString *)name
+- (id)initWithText:(NSString *)txt 
+	   andName:(NSString *)name
+	 withIndex:(int)snipId
 {
     self = [super init];
     
     snippetName = name;
     snippetText = txt;
+    snippetId = [[NSNumber alloc] initWithInt:snipId];
     
     [snippetName retain];
     [snippetText retain];
@@ -36,3 +42,4 @@
     return self;
 }
 @end
+

@@ -76,135 +76,13 @@ static void createColors()
     initialized = YES;
 }
 
-@implementation NPDSession
-@synthesize isConnected;
-@synthesize connectionToggleString;
+@interface NPDSession (Private)
+- (void)appendUpdateLog:(NSString*)data
+              withSense:(NSString*)way
+               andColor:(NSColor*)color;
+@end
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        logString =
-            [[NSMutableAttributedString alloc] initWithString:@""];
-        isConnected = [[NSNumber alloc] initWithBool:NO];
-        connectionToggleString =
-            NSLocalizedStringFromTable(@"connect_toggle"
-                                      ,@"messages"
-                                       ,@"A comment");
-        [connectionToggleString retain];
-        createColors();
-    }
-    return self;
-}
-
-- (void)dealloc
-{
-    [connection release];
-    [logString release];
-    [super dealloc];
-}
-
-- (NSString *)windowNibName
-{
-    return @"MyDocument";
-}
-
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    [txtDialogView
-        setBackgroundColor:textColors[ProtocolBackgroundColor]];
-    [self addSnippets];
-}
-
-- (void)windowControllerDidLoadNib:(NSWindowController *) aController
-{
-    [super windowControllerDidLoadNib:aController];
-    // Add any code here that needs to be executed once the windowController has loaded the document's window.
-}
-
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
-{
-    // Insert code here to write your document to data of the specified type. If the given outError != NULL, ensure that you set *outError when returning nil.
-    // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-    // For applications targeted for Panther or earlier systems, you should use the deprecated API -dataRepresentationOfType:. In this case you can also choose to override -fileWrapperRepresentationOfType: or -writeToFile:ofType: instead.
-
-    if ( outError != NULL ) {
-		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-	}
-	return nil;
-}
-
-- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
-{
-    // Insert code here to read your document from the given data of the specified type.  If the given outError != NULL, ensure that you set *outError when returning NO.
-    // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead. 
-    // For applications targeted for Panther or earlier systems, you should use the deprecated API -loadDataRepresentation:ofType. In this case you can also choose to override -readFromFile:ofType: or -loadFileWrapperRepresentation:ofType: instead.
-    
-    if ( outError != NULL ) {
-		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-	}
-    return YES;
-}
-
-- (void)addSnippets
-{
-    NSString *home = NSHomeDirectory();
-    NSString *jsonFile =
-        [home stringByAppendingPathComponent:@"Library/Application Support/NetDebug/snips.json"];
-
-    NSString *fileString =
-        [NSString stringWithContentsOfFile:jsonFile
-                                  encoding:NSUTF8StringEncoding
-                                     error:nil];
-    
-    SBJsonParser    *parser = [[SBJsonParser alloc] init];
-
-    id  ret = [parser objectWithString:fileString];
-
-    // we want a basic key/value association
-    if (ret == nil || ![ret isKindOfClass:[NSDictionary class]])
-    {
-        [parser release];
-        return;
-    }
-
-    NSDictionary *dic = ret;
-    for (id key in dic)
-    {
-        if ( ![key isKindOfClass:[NSString class]] )
-            continue;
-
-        id obj = [dic objectForKey:key];
-        if ( ![obj isKindOfClass:[NSString class]] )
-            continue;
-
-        [snippetArray addObject:
-            [NPDNetworkSnippet snippetOfText:(NSString*)obj
-                                     andName:(NSString*)key]];
-    }
-
-    [parser release];
-}
-
-- (IBAction)connectTo:(id)sender
-{
-    [connection release];
-    connection =
-        [[NetworkSender alloc]
-            initWithURL:[txtAdress stringValue]
-                andPort:[txtPort stringValue]
-               inBundle:[NSBundle bundleForClass:[self class]]];
-
-    [connection setTextReceiver:self];
-    [self setIsConnected:[NSNumber numberWithBool:YES]];
-    [self setConnectionToggleString:NSLocalizedStringFromTable(@"disconnect_toggle"
-                                                              ,@"messages"
-                                                              ,@"A comment")];
-
-    [documentWindow setTitle:[txtAdress stringValue]];
-}
-
+@implementation NPDSession (Private)
 - (void)appendUpdateLog:(NSString*)data
               withSense:(NSString*)way
                andColor:(NSColor*)color
@@ -244,6 +122,172 @@ static void createColors()
 
     [logString appendAttributedString:acc];
     [txtDialogView setAttributedStringValue:logString];
+}
+@end
+
+@implementation NPDSession
+@synthesize isConnected;
+@synthesize connectionToggleString;
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        logString =
+            [[NSMutableAttributedString alloc] initWithString:@""];
+        isConnected = [[NSNumber alloc] initWithBool:NO];
+        connectionToggleString =
+            NSLocalizedStringFromTable(@"connect_toggle"
+                                      ,@"messages"
+                                       ,@"A comment");
+        [connectionToggleString retain];
+        createColors();
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [connection release];
+    [logString release];
+    [super dealloc];
+}
+
+- (NSString *)windowNibName
+{
+    return @"MyDocument";
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [txtDialogView
+        setBackgroundColor:textColors[ProtocolBackgroundColor]];
+    [self loadSnippets:self];
+}
+
+- (void)windowControllerDidLoadNib:(NSWindowController *) aController
+{
+    [super windowControllerDidLoadNib:aController];
+    // Add any code here that needs to be executed once the windowController has loaded the document's window.
+}
+
+- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
+{
+    // Insert code here to write your document to data of the specified type. If the given outError != NULL, ensure that you set *outError when returning nil.
+    // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
+    // For applications targeted for Panther or earlier systems, you should use the deprecated API -dataRepresentationOfType:. In this case you can also choose to override -fileWrapperRepresentationOfType: or -writeToFile:ofType: instead.
+
+    if ( outError != NULL ) {
+		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
+	}
+	return nil;
+}
+
+- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
+{
+    // Insert code here to read your document from the given data of the specified type.  If the given outError != NULL, ensure that you set *outError when returning NO.
+    // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead. 
+    // For applications targeted for Panther or earlier systems, you should use the deprecated API -loadDataRepresentation:ofType. In this case you can also choose to override -readFromFile:ofType: or -loadFileWrapperRepresentation:ofType: instead.
+    
+    if ( outError != NULL ) {
+		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
+	}
+    return YES;
+}
+
+- (NSString*)snippetFileName
+{
+    NSString *home = NSHomeDirectory();
+    return [home
+        stringByAppendingPathComponent:
+            @"Library/Application Support/NetDebug/snips.json"];
+}
+
+- (IBAction)openSnippetFile:(id)sender
+{
+    [[NSWorkspace sharedWorkspace]
+        openFile:[self snippetFileName]];
+}
+
+- (IBAction)loadSnippets:(id)sender
+{
+
+    NSString *jsonFile = [self snippetFileName];
+    NSString *fileString =
+        [NSString stringWithContentsOfFile:jsonFile
+                                  encoding:NSUTF8StringEncoding
+                                     error:nil];
+    
+    SBJsonParser    *parser = [[SBJsonParser alloc] init];
+
+    id  ret = [parser objectWithString:fileString];
+
+    // we want a basic key/value association
+    if (ret == nil || ![ret isKindOfClass:[NSDictionary class]])
+    {
+        [parser release];
+        return;
+    }
+
+    // Remove all the elements in the array, not the cleanest
+    // way possible, but hey, should work
+    [snippetArray removeObjects:[snippetArray content]];
+
+    NSDictionary *dic = ret;
+    int snippetCount = 1;
+    for (id key in dic)
+    {
+        if ( ![key isKindOfClass:[NSString class]] )
+            continue;
+
+        id obj = [dic objectForKey:key];
+        if ( ![obj isKindOfClass:[NSString class]] )
+            continue;
+
+        [snippetArray addObject:
+            [NPDNetworkSnippet snippetOfText:(NSString*)obj
+                                     andName:(NSString*)key
+                                   withIndex:snippetCount]];
+        snippetCount++;
+    }
+
+    [parser release];
+}
+
+- (IBAction)sendSnippet:(id)sender
+{
+    NSInteger menuTag = [(NSMenuItem*)sender tag];
+    
+    NPDNetworkSnippet *snip =
+        [(NSArray*)[snippetArray content] objectAtIndex:menuTag];
+
+    if ( snip == nil)
+        return;
+
+    NSString *val = [snip snippetText];
+    [connection sendData:val];
+    [self appendUpdateLog:val
+                withSense:@"> "
+                 andColor:textColors[ SentColor ]];
+}
+
+- (IBAction)connectTo:(id)sender
+{
+    [connection release];
+    connection =
+        [[NetworkSender alloc]
+            initWithURL:[txtAdress stringValue]
+                andPort:[txtPort stringValue]
+               inBundle:[NSBundle bundleForClass:[self class]]];
+
+    [connection setTextReceiver:self];
+    [self setIsConnected:[NSNumber numberWithBool:YES]];
+    [self setConnectionToggleString:NSLocalizedStringFromTable(@"disconnect_toggle"
+                                                              ,@"messages"
+                                                              ,@"A comment")];
+
+    [documentWindow setTitle:[txtAdress stringValue]];
 }
 
 - (IBAction)sendCommand:(id)sender

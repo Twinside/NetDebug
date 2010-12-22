@@ -5,8 +5,8 @@
    Created by Vincent Berthoux on 16/12/10.
    Copyright 2010 __MyCompanyName__. All rights reserved.
  */
-"MsgConnectionError"="Connection error\n";
-"MsgConnectionEnded"="End of connection\n";
-"MsgConnected"="Connected on %@:%i\n";
-"connect_toggle"="Connection";
-"disconnect_toggle"="Disconnect";
+"MsgConnectionError"="Erreur de connection\n";
+"MsgConnectionEnded"="Fin de connection\n";
+"MsgConnected"="Connecté à %@:%i\n";
+"connect_toggle"="Connecter";
+"disconnect_toggle"="Déconnecter";

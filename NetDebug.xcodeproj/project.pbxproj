@@ -38,6 +38,7 @@
 		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		6181CFB712C20F9A005AF97F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		61E6EA4312A135E3005A0C48 /* NetworkSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkSender.h; sourceTree = "<group>"; };
 		61E6EA4412A135E3005A0C48 /* NetworkSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkSender.m; sourceTree = "<group>"; };
 		61E6EA4612A2B9D1005A0C48 /* NetworkSnippet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkSnippet.h; sourceTree = "<group>"; };
@@ -277,6 +278,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1DDD582B0DA1D0D100B32029 /* English */,
+				6181CFB712C20F9A005AF97F /* French */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
