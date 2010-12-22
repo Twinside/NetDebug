@@ -11,3 +11,5 @@
 "connect_toggle"="Connection";
 "disconnect_toggle"="Disconnect";
 "MsgDisconnected"="Disconnection\n";
+"defaultSnippet"="{ \"Snippet\":\"Default snippet, edit them in Snippet > Edit snippet file\" }";
+

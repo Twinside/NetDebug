@@ -222,6 +222,21 @@ static void createColors()
                                   encoding:NSUTF8StringEncoding
                                      error:nil];
     
+    if ( fileString == nil )
+    {
+        fileString =
+            NSLocalizedStringFromTable(@"defaultSnippet"
+                                      ,@"messages"
+                                      ,@"A comment");
+
+        // write the string to be able to edit it easily
+        // without error.
+        [fileString writeToFile:jsonFile
+                     atomically:NO
+                       encoding:NSUTF8StringEncoding
+                          error:nil];
+    }
+
     SBJsonParser    *parser = [[SBJsonParser alloc] init];
 
     id  ret = [parser objectWithString:fileString];

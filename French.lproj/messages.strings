@@ -11,3 +11,5 @@
 "connect_toggle"="Connecter";
 "disconnect_toggle"="Déconnecter";
 "MsgDisconnected"="Déconnexion\n";
+"defaultSnippet"="{ \"Fragment\":\"Default snippet, Editez via le menu Fragments\" }";
+
