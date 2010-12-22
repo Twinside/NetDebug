@@ -257,7 +257,7 @@ static void createColors()
 
 - (IBAction)sendSnippet:(id)sender
 {
-    NSInteger menuTag = [(NSMenuItem*)sender tag];
+    NSInteger menuTag = [(NSMenuItem*)sender tag] - 1;
     
     NPDNetworkSnippet *snip =
         [(NSArray*)[snippetArray content] objectAtIndex:menuTag];
