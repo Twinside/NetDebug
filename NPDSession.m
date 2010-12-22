@@ -118,7 +118,10 @@ static void createColors()
                                 , NSForegroundColorAttributeName
                                 , nil];
 
-    [acc appendString:data attributes:attr];
+    if ( data == nil || [data length] < 2 )
+        [acc appendString:@"\n" attributes:attr];
+    else
+        [acc appendString:data attributes:attr];
 
     [logString appendAttributedString:acc];
     [txtDialogView setAttributedStringValue:logString];
