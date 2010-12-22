@@ -321,6 +321,7 @@
 				INFOPLIST_FILE = "NetDebug-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = NetDebug;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -336,6 +337,7 @@
 				INFOPLIST_FILE = "NetDebug-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = NetDebug;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
 		};
