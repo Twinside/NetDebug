@@ -202,9 +202,23 @@ static void createColors()
 - (NSString*)snippetFileName
 {
     NSString *home = NSHomeDirectory();
-    return [home
-        stringByAppendingPathComponent:
-            @"Library/Application Support/NetDebug/snips.json"];
+    NSString *path = 
+        [home stringByAppendingPathComponent:
+            @"Library/Application Support/NetDebug"];
+            //@"snips.json"
+
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    if ( ![fileManager fileExistsAtPath:path] )
+    {
+        [fileManager createDirectoryAtPath:path
+               withIntermediateDirectories:YES
+                                attributes:nil
+                                     error:nil];
+    }
+
+    return [path stringByAppendingPathComponent:
+                    @"snips.json"];
 }
 
 - (IBAction)openSnippetFile:(id)sender
