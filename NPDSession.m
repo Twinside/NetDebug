@@ -124,7 +124,6 @@ static void createColors()
         [acc appendString:data attributes:attr];
 
     [logString appendAttributedString:acc];
-    [txtDialogView setAttributedStringValue:logString];
 }
 @end
 
@@ -136,8 +135,8 @@ static void createColors()
 {
     self = [super init];
     if (self) {
-        logString =
-            [[NSMutableAttributedString alloc] initWithString:@""];
+        logString = nil;
+            // [[NSMutableAttributedString alloc] initWithString:@""];
         isConnected = [[NSNumber alloc] initWithBool:NO];
         connectionToggleString =
             NSLocalizedStringFromTable(@"connect_toggle"
@@ -166,6 +165,9 @@ static void createColors()
     [super awakeFromNib];
     [txtDialogView
         setBackgroundColor:textColors[ProtocolBackgroundColor]];
+
+    logString = [[txtDialogView textStorage] retain];
+    
     [self loadSnippets:self];
 }
 
@@ -371,8 +373,6 @@ static void createColors()
 {
     [logString setAttributedString:
         [[NSMutableAttributedString alloc] initWithString:@""]];
-
-    [txtDialogView setAttributedStringValue:logString];
 }
 
 - (void)receivedData:(NSString*)data
