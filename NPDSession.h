@@ -14,7 +14,9 @@
 {
     IBOutlet NSArrayController *snippetArray;
 
-    IBOutlet NSTextField       *txtDialogView;
+    IBOutlet NSScrollView      *txtDialogScroll;
+    IBOutlet NSTextView        *txtDialogView;
+
     IBOutlet NSTextField       *txtMessage;
 
     IBOutlet NSTextField       *txtAdress;
@@ -24,7 +26,8 @@
 
     NetworkSender              *connection;
 
-    NSMutableAttributedString  *logString;
+    // NSMutableAttributedString  *logString;
+    NSTextStorage   *logString;
 
     @private NSNumber* isConnected;
     @private NSString* connectionToggleString;
@@ -37,6 +40,10 @@
 - (IBAction)openSnippetFile:(id)sender;
 - (IBAction)clearLogView:(id)sender;
 
+//- (NSAttributedString *) string;
+//- (void) setString: (NSAttributedString *) value;
+
 @property(readwrite,assign) NSNumber* isConnected;
 @property(readwrite,assign) NSString* connectionToggleString;
 @end
+

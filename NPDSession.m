@@ -77,12 +77,29 @@ static void createColors()
 }
 
 @interface NPDSession (Private)
+- (void)scrollToBottom:(NSView*)sender;
 - (void)appendUpdateLog:(NSString*)data
               withSense:(NSString*)way
                andColor:(NSColor*)color;
 @end
 
 @implementation NPDSession (Private)
+- (void)scrollToBottom:(NSScrollView*)scroll
+{
+    NSPoint newScrollOrigin;
+ 
+    // assume that the scrollview is an existing variable
+    if ([[scroll documentView] isFlipped]) {
+        newScrollOrigin=NSMakePoint(0.0,NSMaxY([[scroll documentView] frame])
+                                       -NSHeight([[scroll contentView] bounds]));
+    } else {
+        newScrollOrigin=NSMakePoint(0.0,0.0);
+    }
+ 
+    [[scroll documentView] scrollPoint:newScrollOrigin];
+ 
+}
+
 - (void)appendUpdateLog:(NSString*)data
               withSense:(NSString*)way
                andColor:(NSColor*)color
@@ -124,7 +141,13 @@ static void createColors()
         [acc appendString:data attributes:attr];
 
     [logString appendAttributedString:acc];
-    [txtDialogView setAttributedStringValue:logString];
+
+    NSRect neoBounds = [txtDialogView bounds];
+    neoBounds.origin.x = 0;
+    neoBounds.origin.y = 0;
+
+    [txtDialogView setBounds:neoBounds];
+    [self scrollToBottom:txtDialogScroll];
 }
 @end
 
@@ -136,8 +159,8 @@ static void createColors()
 {
     self = [super init];
     if (self) {
-        logString =
-            [[NSMutableAttributedString alloc] initWithString:@""];
+        logString = nil;
+            // [[NSMutableAttributedString alloc] initWithString:@""];
         isConnected = [[NSNumber alloc] initWithBool:NO];
         connectionToggleString =
             NSLocalizedStringFromTable(@"connect_toggle"
@@ -166,20 +189,28 @@ static void createColors()
     [super awakeFromNib];
     [txtDialogView
         setBackgroundColor:textColors[ProtocolBackgroundColor]];
+
+    logString = [[txtDialogView textStorage] retain];
+    
     [self loadSnippets:self];
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController
 {
     [super windowControllerDidLoadNib:aController];
-    // Add any code here that needs to be executed once the windowController has loaded the document's window.
+    // Add any code here that needs to be executed once
+    // the windowController has loaded the document's window.
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
-    // Insert code here to write your document to data of the specified type. If the given outError != NULL, ensure that you set *outError when returning nil.
-    // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-    // For applications targeted for Panther or earlier systems, you should use the deprecated API -dataRepresentationOfType:. In this case you can also choose to override -fileWrapperRepresentationOfType: or -writeToFile:ofType: instead.
+    // Insert code here to write your document to data of the specified type.
+    // If the given outError != NULL, ensure that you set *outError when returning nil.
+    // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:,
+    // or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
+    // For applications targeted for Panther or earlier systems, you should use
+    // the deprecated API -dataRepresentationOfType:. In this case you can also
+    // choose to override -fileWrapperRepresentationOfType: or -writeToFile:ofType: instead.
 
     if ( outError != NULL ) {
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
@@ -189,9 +220,15 @@ static void createColors()
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
-    // Insert code here to read your document from the given data of the specified type.  If the given outError != NULL, ensure that you set *outError when returning NO.
-    // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead. 
-    // For applications targeted for Panther or earlier systems, you should use the deprecated API -loadDataRepresentation:ofType. In this case you can also choose to override -readFromFile:ofType: or -loadFileWrapperRepresentation:ofType: instead.
+    // Insert code here to read your document from the given data of the
+    // specified type.  If the given outError != NULL, ensure that you set
+    // *outError when returning NO.
+    // You can also choose to override -readFromFileWrapper:ofType:error:
+    // or -readFromURL:ofType:error: instead. 
+    // For applications targeted for Panther or earlier systems, you should use
+    // the deprecated API -loadDataRepresentation:ofType. In this case you can
+    // also choose to override -readFromFile:ofType: or
+    // -loadFileWrapperRepresentation:ofType: instead.
     
     if ( outError != NULL ) {
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
@@ -371,8 +408,6 @@ static void createColors()
 {
     [logString setAttributedString:
         [[NSMutableAttributedString alloc] initWithString:@""]];
-
-    [txtDialogView setAttributedStringValue:logString];
 }
 
 - (void)receivedData:(NSString*)data
