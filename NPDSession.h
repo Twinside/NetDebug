@@ -14,7 +14,9 @@
 {
     IBOutlet NSArrayController *snippetArray;
 
+    IBOutlet NSScrollView      *txtDialogScroll;
     IBOutlet NSTextView        *txtDialogView;
+
     IBOutlet NSTextField       *txtMessage;
 
     IBOutlet NSTextField       *txtAdress;

@@ -492,22 +492,22 @@
 									<int key="NSvFlags">256</int>
 									<object class="NSMutableArray" key="NSSubviews">
 										<bool key="EncodedWithXMLCoder">YES</bool>
-										<object class="NSScrollView" id="476008526">
+										<object class="NSScrollView" id="890038428">
 											<reference key="NSNextResponder" ref="266725378"/>
 											<int key="NSvFlags">274</int>
 											<object class="NSMutableArray" key="NSSubviews">
 												<bool key="EncodedWithXMLCoder">YES</bool>
-												<object class="NSClipView" id="158746673">
-													<reference key="NSNextResponder" ref="476008526"/>
+												<object class="NSClipView" id="694914738">
+													<reference key="NSNextResponder" ref="890038428"/>
 													<int key="NSvFlags">2304</int>
 													<object class="NSMutableArray" key="NSSubviews">
 														<bool key="EncodedWithXMLCoder">YES</bool>
-														<object class="NSTextView" id="678248089">
-															<reference key="NSNextResponder" ref="158746673"/>
+														<object class="NSTextView" id="806636970">
+															<reference key="NSNextResponder" ref="694914738"/>
 															<int key="NSvFlags">2322</int>
 															<string key="NSFrameSize">{359, 14}</string>
-															<reference key="NSSuperview" ref="158746673"/>
-															<object class="NSTextContainer" key="NSTextContainer" id="273067192">
+															<reference key="NSSuperview" ref="694914738"/>
+															<object class="NSTextContainer" key="NSTextContainer" id="759796462">
 																<object class="NSLayoutManager" key="NSLayoutManager">
 																	<object class="NSTextStorage" key="NSTextStorage">
 																		<object class="NSMutableString" key="NSString">
@@ -517,12 +517,12 @@
 																	</object>
 																	<object class="NSMutableArray" key="NSTextContainers">
 																		<bool key="EncodedWithXMLCoder">YES</bool>
-																		<reference ref="273067192"/>
+																		<reference ref="759796462"/>
 																	</object>
 																	<int key="NSLMFlags">134</int>
 																	<nil key="NSDelegate"/>
 																</object>
-																<reference key="NSTextView" ref="678248089"/>
+																<reference key="NSTextView" ref="806636970"/>
 																<double key="NSWidth">359</double>
 																<int key="NSTCFlags">1</int>
 															</object>
@@ -585,9 +585,9 @@
 														</object>
 													</object>
 													<string key="NSFrame">{{1, 1}, {359, 466}}</string>
-													<reference key="NSSuperview" ref="476008526"/>
-													<reference key="NSNextKeyView" ref="678248089"/>
-													<reference key="NSDocView" ref="678248089"/>
+													<reference key="NSSuperview" ref="890038428"/>
+													<reference key="NSNextKeyView" ref="806636970"/>
+													<reference key="NSDocView" ref="806636970"/>
 													<reference key="NSBGColor" ref="268822691"/>
 													<object class="NSCursor" key="NSCursor">
 														<string key="NSHotSpot">{4, -5}</string>
@@ -595,22 +595,22 @@
 													</object>
 													<int key="NScvFlags">4</int>
 												</object>
-												<object class="NSScroller" id="297514257">
-													<reference key="NSNextResponder" ref="476008526"/>
+												<object class="NSScroller" id="432548188">
+													<reference key="NSNextResponder" ref="890038428"/>
 													<int key="NSvFlags">256</int>
 													<string key="NSFrame">{{360, 1}, {15, 466}}</string>
-													<reference key="NSSuperview" ref="476008526"/>
-													<reference key="NSTarget" ref="476008526"/>
+													<reference key="NSSuperview" ref="890038428"/>
+													<reference key="NSTarget" ref="890038428"/>
 													<string key="NSAction">_doScroller:</string>
 													<double key="NSPercent">0.99248120300751874</double>
 												</object>
-												<object class="NSScroller" id="405302910">
-													<reference key="NSNextResponder" ref="476008526"/>
+												<object class="NSScroller" id="277261216">
+													<reference key="NSNextResponder" ref="890038428"/>
 													<int key="NSvFlags">-2147483392</int>
 													<string key="NSFrame">{{-100, -100}, {87, 18}}</string>
-													<reference key="NSSuperview" ref="476008526"/>
+													<reference key="NSSuperview" ref="890038428"/>
 													<int key="NSsFlags">1</int>
-													<reference key="NSTarget" ref="476008526"/>
+													<reference key="NSTarget" ref="890038428"/>
 													<string key="NSAction">_doScroller:</string>
 													<double key="NSCurValue">1</double>
 													<double key="NSPercent">0.94565218687057495</double>
@@ -618,11 +618,11 @@
 											</object>
 											<string key="NSFrameSize">{376, 468}</string>
 											<reference key="NSSuperview" ref="266725378"/>
-											<reference key="NSNextKeyView" ref="158746673"/>
+											<reference key="NSNextKeyView" ref="694914738"/>
 											<int key="NSsFlags">18</int>
-											<reference key="NSVScroller" ref="297514257"/>
-											<reference key="NSHScroller" ref="405302910"/>
-											<reference key="NSContentView" ref="158746673"/>
+											<reference key="NSVScroller" ref="432548188"/>
+											<reference key="NSHScroller" ref="277261216"/>
+											<reference key="NSContentView" ref="694914738"/>
 										</object>
 									</object>
 									<string key="NSFrameSize">{378, 469}</string>
@@ -1003,19 +1003,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="678248089"/>
-						<reference key="destination" ref="512844837"/>
+						<string key="label">txtDialogView</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="806636970"/>
 					</object>
-					<int key="connectionID">100170</int>
+					<int key="connectionID">100173</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">txtDialogView</string>
+						<string key="label">txtDialogScroll</string>
 						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="678248089"/>
+						<reference key="destination" ref="890038428"/>
 					</object>
-					<int key="connectionID">100173</int>
+					<int key="connectionID">100174</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1273,7 +1273,7 @@
 						<reference key="object" ref="266725378"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="476008526"/>
+							<reference ref="890038428"/>
 						</object>
 						<reference key="parent" ref="267914673"/>
 					</object>
@@ -1298,29 +1298,29 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100166</int>
-						<reference key="object" ref="476008526"/>
+						<reference key="object" ref="890038428"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="297514257"/>
-							<reference ref="405302910"/>
-							<reference ref="678248089"/>
+							<reference ref="432548188"/>
+							<reference ref="277261216"/>
+							<reference ref="806636970"/>
 						</object>
 						<reference key="parent" ref="266725378"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100167</int>
-						<reference key="object" ref="297514257"/>
-						<reference key="parent" ref="476008526"/>
+						<reference key="object" ref="432548188"/>
+						<reference key="parent" ref="890038428"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100168</int>
-						<reference key="object" ref="405302910"/>
-						<reference key="parent" ref="476008526"/>
+						<reference key="object" ref="277261216"/>
+						<reference key="parent" ref="890038428"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100169</int>
-						<reference key="object" ref="678248089"/>
-						<reference key="parent" ref="476008526"/>
+						<reference key="object" ref="806636970"/>
+						<reference key="parent" ref="890038428"/>
 					</object>
 				</object>
 			</object>
@@ -1430,9 +1430,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{484, 188}, {541, 563}}</string>
+					<string>{{486, 235}, {541, 563}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{484, 188}, {541, 563}}</string>
+					<string>{{486, 235}, {541, 563}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>
@@ -1457,7 +1457,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">100173</int>
+			<int key="maxID">100174</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1532,6 +1532,7 @@
 							<string>documentWindow</string>
 							<string>snippetArray</string>
 							<string>txtAdress</string>
+							<string>txtDialogScroll</string>
 							<string>txtDialogView</string>
 							<string>txtMessage</string>
 							<string>txtPort</string>
@@ -1541,6 +1542,7 @@
 							<string>NSWindow</string>
 							<string>NSArrayController</string>
 							<string>NSTextField</string>
+							<string>NSScrollView</string>
 							<string>NSTextView</string>
 							<string>NSTextField</string>
 							<string>NSComboBox</string>
@@ -1553,6 +1555,7 @@
 							<string>documentWindow</string>
 							<string>snippetArray</string>
 							<string>txtAdress</string>
+							<string>txtDialogScroll</string>
 							<string>txtDialogView</string>
 							<string>txtMessage</string>
 							<string>txtPort</string>
@@ -1570,6 +1573,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">txtAdress</string>
 								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">txtDialogScroll</string>
+								<string key="candidateClassName">NSScrollView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">txtDialogView</string>
