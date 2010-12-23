@@ -35,6 +35,7 @@
 - (IBAction)sendCommand:(id)sender;
 - (IBAction)sendSnippet:(id)sender;
 - (IBAction)openSnippetFile:(id)sender;
+- (IBAction)clearLogView:(id)sender;
 
 @property(readwrite,assign) NSNumber* isConnected;
 @property(readwrite,assign) NSString* connectionToggleString;

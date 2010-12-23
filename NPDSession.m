@@ -229,7 +229,6 @@ static void createColors()
 
 - (IBAction)loadSnippets:(id)sender
 {
-
     NSString *jsonFile = [self snippetFileName];
     NSString *fileString =
         [NSString stringWithContentsOfFile:jsonFile
@@ -255,8 +254,7 @@ static void createColors()
 
     id  ret = [parser objectWithString:fileString];
 
-    // we want a basic key/value association
-    if (ret == nil || ![ret isKindOfClass:[NSDictionary class]])
+    if (ret == nil || ![ret isKindOfClass:[NSArray class]])
     {
         [parser release];
         return;
@@ -266,22 +264,32 @@ static void createColors()
     // way possible, but hey, should work
     [snippetArray removeObjects:[snippetArray content]];
 
-    NSDictionary *dic = ret;
     int snippetCount = 1;
-    for (id key in dic)
+    for (id obj in ret)
     {
-        if ( ![key isKindOfClass:[NSString class]] )
-            continue;
+        // we want a basic key/value association
+        if (obj == nil || ![obj isKindOfClass:[NSDictionary class]])
+        {
+            [parser release];
+            return;
+        }
 
-        id obj = [dic objectForKey:key];
-        if ( ![obj isKindOfClass:[NSString class]] )
-            continue;
+        NSDictionary *dic = obj;
+        for (id key in dic)
+        {
+            if ( ![key isKindOfClass:[NSString class]] )
+                continue;
 
-        [snippetArray addObject:
-            [NPDNetworkSnippet snippetOfText:(NSString*)obj
-                                     andName:(NSString*)key
-                                   withIndex:snippetCount]];
-        snippetCount++;
+            id obj = [dic objectForKey:key];
+            if ( ![obj isKindOfClass:[NSString class]] )
+                continue;
+
+            [snippetArray addObject:
+                [NPDNetworkSnippet snippetOfText:(NSString*)obj
+                                        andName:(NSString*)key
+                                    withIndex:snippetCount]];
+            snippetCount++;
+        }
     }
 
     [parser release];
@@ -357,6 +365,14 @@ static void createColors()
     [self appendUpdateLog:info
                 withSense:@"- "
                  andColor:textColors[ InfoColor ]];
+}
+
+- (IBAction)clearLogView:(id)sender
+{
+    [logString setAttributedString:
+        [[NSMutableAttributedString alloc] initWithString:@""]];
+
+    [txtDialogView setAttributedStringValue:logString];
 }
 
 - (void)receivedData:(NSString*)data
