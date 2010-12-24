@@ -25,11 +25,10 @@
     IBOutlet NSWindow          *documentWindow;
 
     NetworkSender              *connection;
-
-    // NSMutableAttributedString  *logString;
-    NSTextStorage   *logString;
+    NSTextStorage              *logString;
 
     @private NSNumber* isConnected;
+    @private NSString* connectionDescr;
     @private NSString* connectionToggleString;
 }
 
@@ -40,9 +39,7 @@
 - (IBAction)openSnippetFile:(id)sender;
 - (IBAction)clearLogView:(id)sender;
 
-//- (NSAttributedString *) string;
-//- (void) setString: (NSAttributedString *) value;
-
+@property(readwrite,assign) NSString* connectionDescr;
 @property(readwrite,assign) NSNumber* isConnected;
 @property(readwrite,assign) NSString* connectionToggleString;
 @end

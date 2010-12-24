@@ -8,6 +8,8 @@
 "MsgConnectionError"="Connection error\n";
 "MsgConnectionEnded"="End of connection\n";
 "MsgConnected"="Connected on %@:%i\n";
+"UnconnectedTitle"="NetDebug - Not connected"
+"connectedTitle"="Connected to %@:%@"
 "connect_toggle"="Connection";
 "disconnect_toggle"="Disconnect";
 "MsgDisconnected"="Disconnection\n";

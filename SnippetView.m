@@ -77,11 +77,6 @@
 						   	blue:208.0f / 255.0f
 						   alpha:1.0f] setFill];
 	[back fill];
-    //[[NSColor whiteColor] setStroke];
-    //[NSBezierPath setDefaultLineWidth:4.0f];
-
-    //[back stroke];
-    
 	[[NSColor blackColor] setFill];
 
     [super drawRect:dirtyRect];

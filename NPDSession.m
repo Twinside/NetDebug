@@ -74,6 +74,7 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
               withSense:(NSTextAttachment*)way
               isMessage:(BOOL)isMessageString
                andColor:(NSColor*)color;
+- (void)disconnect;
 @end
 
 @implementation NPDSession (Private)
@@ -133,6 +134,19 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
         initialized = YES;
     }
     return textColors[ idx ];
+}
+
+- (void)disconnect
+{
+    [self setIsConnected:[NSNumber numberWithBool:NO]];
+    [self setConnectionToggleString:
+            NSLocalizedStringFromTable(@"connect_toggle"
+                                      ,@"messages"
+                                      ,@"A comment")];
+    [self setConnectionDescr:
+            NSLocalizedStringFromTable(@"UnconnectedTitle"
+                                      ,@"messages"
+                                      ,@"A comment")];
 }
 
 - (void)scrollToBottom:(NSScrollView*)scroll
@@ -245,19 +259,17 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
 @implementation NPDSession
 @synthesize isConnected;
 @synthesize connectionToggleString;
+@synthesize connectionDescr;
 
 - (id)init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         logString = nil;
-            // [[NSMutableAttributedString alloc] initWithString:@""];
-        isConnected = [[NSNumber alloc] initWithBool:NO];
-        connectionToggleString =
-            NSLocalizedStringFromTable(@"connect_toggle"
-                                      ,@"messages"
-                                      ,@"A comment");
-        [connectionToggleString retain];
+        isConnected = nil;
+        connectionToggleString = nil;
+        connectionDescr = nil;
     }
     return self;
 }
@@ -282,8 +294,9 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
             [NPDSession colorForIndex:ProtocolBackgroundColor]];
 
     logString = [[txtDialogView textStorage] retain];
-    
+
     [self loadSnippets:self];
+    [self disconnect];
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController
@@ -464,7 +477,14 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
                                       ,@"messages"
                                       ,@"A comment")];
 
-        [documentWindow setTitle:[txtAdress stringValue]];
+        NSString *title =
+            NSLocalizedStringFromTable(@"connectedTitle"
+                                      ,@"messages"
+                                      ,@"A comment");
+        [self setConnectionDescr:
+            [NSString stringWithFormat:title
+                                      ,[txtAdress stringValue]
+                                      ,[txtPort stringValue]]];
     }
     else
     {
@@ -474,11 +494,7 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
                                       ,@"A comment")];
         [connection release];
         connection = nil;
-        [self setIsConnected:[NSNumber numberWithBool:NO]];
-        [self setConnectionToggleString:
-            NSLocalizedStringFromTable(@"connect_toggle"
-                                      ,@"messages"
-                                      ,@"A comment")];
+        [self disconnect];
     }
 }
 
@@ -516,15 +532,6 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
                  andColor:[NPDSession colorForIndex:ReceivedColor]];
 }
 
-- (void)disconnect
-{
-    [self setIsConnected:[NSNumber numberWithBool:NO]];
-    [self setConnectionToggleString:
-            NSLocalizedStringFromTable(@"connect_toggle"
-                                      ,@"messages"
-                                       ,@"A comment")];
-}
-
 - (void)endOfConnection:(NSString*)text
 {
     [self appendUpdateLog:text
@@ -546,6 +553,7 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
 
     [connection release];
     connection = nil;
+    [self disconnect];
 }
 @end
 
