@@ -205,7 +205,7 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
             mutableCopy];
 
     //[pstyle setHeadIndent:5.0f];
-    [pstyle setFirstLineHeadIndent:37.0f];
+    [pstyle setFirstLineHeadIndent:66.5f];
 
     NSFont *pfont;
 
@@ -293,7 +293,8 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
     // the windowController has loaded the document's window.
 }
 
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
+- (NSData *)dataOfType:(NSString *)typeName
+                 error:(NSError **)outError
 {
     // Insert code here to write your document to data of the specified type.
     // If the given outError != NULL, ensure that you set *outError when returning nil.
@@ -309,7 +310,9 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
 	return nil;
 }
 
-- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
+- (BOOL)readFromData:(NSData *)data
+              ofType:(NSString *)typeName
+               error:(NSError **)outError
 {
     // Insert code here to read your document from the given data of the
     // specified type.  If the given outError != NULL, ensure that you set
