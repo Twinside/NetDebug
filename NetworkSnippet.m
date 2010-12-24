@@ -13,6 +13,7 @@
 @synthesize snippetName;
 @synthesize snippetText;
 @synthesize snippetId;
+@synthesize snippetTextId;
 
 + (id)snippetOfText:(NSString*)txt
             andName:(NSString*)name
@@ -35,6 +36,9 @@
     snippetName = name;
     snippetText = txt;
     snippetId = [[NSNumber alloc] initWithInt:snipId];
+    snippetTextId =
+        [[NSString stringWithFormat:@"⌘%@"
+          ,[NSNumber numberWithInt:snipId]] retain];
     
     [snippetName retain];
     [snippetText retain];

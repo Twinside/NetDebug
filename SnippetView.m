@@ -60,5 +60,31 @@
            source:self
         slideBack:YES];
 }
+
+- (void)drawRect:(NSRect)dirtyRect
+{
+    NSRect frame = [self bounds];
+    
+    NSBezierPath *back = 
+        [NSBezierPath
+            bezierPathWithRoundedRect:frame
+                              xRadius:frame.size.height / 2.0f
+                              yRadius:frame.size.height / 2.0f];
+
+
+	[[NSColor colorWithDeviceRed: 75.0f / 255.0f
+						   green:137.0f / 255.0f
+						   	blue:208.0f / 255.0f
+						   alpha:1.0f] setFill];
+	[back fill];
+    //[[NSColor whiteColor] setStroke];
+    //[NSBezierPath setDefaultLineWidth:4.0f];
+
+    //[back stroke];
+    
+	[[NSColor blackColor] setFill];
+
+    [super drawRect:dirtyRect];
+}
 @end
 

@@ -10,7 +10,7 @@
 
 
 @interface SnippetView : NSTextField {
-
 }
 
+- (void)drawRect:(NSRect)dirtyRect;
 @end

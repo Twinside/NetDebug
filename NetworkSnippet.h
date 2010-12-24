@@ -12,6 +12,7 @@
 @interface NPDNetworkSnippet : NSObject {
     NSString    *snippetText;
     NSString    *snippetName;
+    NSString    *snippetTextId;
     NSNumber    *snippetId;
 }
 + (id)snippetOfText:(NSString*)txt
@@ -24,5 +25,6 @@
 
 @property(copy)NSString* snippetName;
 @property(copy)NSString* snippetText;
+@property(copy)NSString* snippetTextId;
 @property(copy)NSNumber* snippetId;
 @end
