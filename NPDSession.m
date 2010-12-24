@@ -66,37 +66,42 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
 }
 
 @interface NPDSession (Private)
-+ (NSImage*)imageForIndex:(ImageIndice)idx;
++ (NSTextAttachment*)imageForIndex:(ImageIndice)idx;
 + (NSColor*)colorForIndex:(ColorIndice)idx;
 - (void)scrollToBottom:(NSView*)sender;
 - (void)appendUpdateLog:(NSString*)data
-              withSense:(NSImage*)way
+              withSense:(NSTextAttachment*)way
               isMessage:(BOOL)isMessageString
                andColor:(NSColor*)color;
 @end
 
 @implementation NPDSession (Private)
-+ (NSImage*)imageForIndex:(ImageIndice)idx
++ (NSTextAttachment*)loadImageFromBundle:(NSString*)img
 {
-    static NSImage* images[LastImage] = { 0 };
+    NSBundle* bundle = [NSBundle mainBundle];
+    NSString* imgPath =
+        [bundle pathForResource:img ofType:@"png"];
+
+    NSFileWrapper *wrapper =
+        [[NSFileWrapper alloc]
+            initWithURL:[NSURL fileURLWithPath:imgPath]
+                options:0
+                  error:nil];
+
+    return [[NSTextAttachment alloc]
+                    initWithFileWrapper:wrapper];
+}
+
++ (NSTextAttachment*)imageForIndex:(ImageIndice)idx
+{
+    static NSTextAttachment* images[LastImage] = { 0 };
     static BOOL initialized = NO;
 
     if (!initialized)
     {
-        NSBundle* bundle = [NSBundle mainBundle];
-
-        images[ImageTo] = (NSImage*)
-            [[NSImage alloc] initByReferencingFile:
-                [bundle pathForResource:@"icon-To" ofType:@"png"]];
-
-        images[ImageFrom] = (NSImage*)
-            [[NSImage alloc] initByReferencingFile:
-                [bundle pathForResource:@"icon-From" ofType:@"png"]];
-
-        images[ImageInfo] = (NSImage*)
-            [[NSImage alloc] initByReferencingFile:
-                [bundle pathForResource:@"icon-info" ofType:@"png"]];
-
+        images[ImageTo] = [NPDSession loadImageFromBundle:@"icon-To"];
+        images[ImageFrom] = [NPDSession loadImageFromBundle:@"icon-From"];
+        images[ImageInfo] = [NPDSession loadImageFromBundle:@"icon-info"];
         initialized = YES;
     }
 
@@ -141,7 +146,7 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
 }
 
 - (void)appendUpdateLog:(NSString*)data
-              withSense:(NSImage*)way
+              withSense:(NSTextAttachment*)way
               isMessage:(BOOL)isMessageString
                andColor:(NSColor*)color
 {
