@@ -180,7 +180,7 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
     [acc appendString:clockString attributes:clockAttributes];
     [acc appendString:@"] " attributes:sizeAttrib];
 
-    unichar attachement[] = { NSAttachmentCharacter };
+    unichar attachement[] = { NSAttachmentCharacter, ' ' };
 
     [acc appendString:[NSString
                 stringWithCharacters:attachement
