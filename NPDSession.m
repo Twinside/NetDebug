@@ -22,7 +22,14 @@ typedef enum ColorIndice_t
     LastColor
 } ColorIndice;
 
-NSColor* textColors[LastColor] = { 0 };
+typedef enum ImageIndice_t
+{
+    ImageTo,
+    ImageFrom,
+    ImageInfo,
+
+    LastImage
+} ImageIndice;
 
 @interface NSMutableAttributedString (AppendString)
 - (void)appendString:(NSString*)str;
@@ -30,7 +37,6 @@ NSColor* textColors[LastColor] = { 0 };
 @end
 
 @implementation NSMutableAttributedString (AppendString)
-
 - (void)appendString:(NSString*)str
 {
     NSMutableAttributedString    *astr =
@@ -51,39 +57,73 @@ NSColor* textColors[LastColor] = { 0 };
 }
 @end
 
-static inline void setTextColor( ColorIndice idx, int r, int g, int b )
+static inline NSColor* colorOfRgb( int r, int g, int b )
 {
-    textColors[ idx ] = [NSColor colorWithDeviceRed:r / 255.0f
-                                              green:g / 255.0f
-                                               blue:b / 255.0f
-                                              alpha:1.0f];
-    [textColors[ idx ] retain];
-}
-
-static void createColors()
-{
-    static Boolean initialized = NO;
-
-    if (initialized) return;
-
-    setTextColor( ErrorColor    , 0xBA , 0x72 , 0x22 );
-    setTextColor( SentColor     , 0x7D , 0x95 , 0xAD );
-    setTextColor( ReceivedColor , 0x60 , 0x60 , 0x60 );
-    setTextColor( InfoColor     , 0x00 , 0x00 , 0x00 );
-    setTextColor( ClockColor    , 0x7D , 0x64 , 0xAF );
-    setTextColor( ProtocolBackgroundColor, 0xF3 , 0xF2 , 0xED );
-
-    initialized = YES;
+    return [[NSColor colorWithDeviceRed:r / 255.0f
+                                  green:g / 255.0f
+                                   blue:b / 255.0f
+                                  alpha:1.0f] retain];
 }
 
 @interface NPDSession (Private)
++ (NSImage*)imageForIndex:(ImageIndice)idx;
++ (NSColor*)colorForIndex:(ColorIndice)idx;
 - (void)scrollToBottom:(NSView*)sender;
 - (void)appendUpdateLog:(NSString*)data
-              withSense:(NSString*)way
+              withSense:(NSImage*)way
+              isMessage:(BOOL)isMessageString
                andColor:(NSColor*)color;
 @end
 
 @implementation NPDSession (Private)
++ (NSImage*)imageForIndex:(ImageIndice)idx
+{
+    static NSImage* images[LastImage] = { 0 };
+    static BOOL initialized = NO;
+
+    if (!initialized)
+    {
+        NSBundle* bundle = [NSBundle mainBundle];
+
+        images[ImageTo] = (NSImage*)
+            [[NSImage alloc] initByReferencingFile:
+                [bundle pathForResource:@"icon-To" ofType:@"png"]];
+
+        images[ImageFrom] = (NSImage*)
+            [[NSImage alloc] initByReferencingFile:
+                [bundle pathForResource:@"icon-From" ofType:@"png"]];
+
+        images[ImageInfo] = (NSImage*)
+            [[NSImage alloc] initByReferencingFile:
+                [bundle pathForResource:@"icon-info" ofType:@"png"]];
+
+        initialized = YES;
+    }
+
+    assert( idx < LastImage );
+    return images[ idx ];
+}
+
++ (NSColor*)colorForIndex:(ColorIndice)idx
+{
+    static NSColor* textColors[LastColor] = { 0 };
+    static Boolean initialized = NO;
+
+    if (!initialized)
+    {
+        textColors[ErrorColor]    = colorOfRgb( 0xBA, 0x72, 0x22 );
+        textColors[SentColor]     = colorOfRgb( 0x7D, 0x95, 0xAD );
+        textColors[ReceivedColor] = colorOfRgb( 0x60, 0x60, 0x60 );
+        textColors[InfoColor]     = colorOfRgb( 0x00, 0x00, 0x00 );
+        textColors[ClockColor]    = colorOfRgb( 0x7D, 0x64, 0xAF );
+        textColors[ProtocolBackgroundColor] =
+            colorOfRgb( 0xF3 , 0xF2 , 0xED );
+
+        initialized = YES;
+    }
+    return textColors[ idx ];
+}
+
 - (void)scrollToBottom:(NSScrollView*)scroll
 {
     NSPoint newScrollOrigin;
@@ -101,39 +141,79 @@ static void createColors()
 }
 
 - (void)appendUpdateLog:(NSString*)data
-              withSense:(NSString*)way
+              withSense:(NSImage*)way
+              isMessage:(BOOL)isMessageString
                andColor:(NSColor*)color
 {
+    NSFont *clockFont = [NSFont userFontOfSize:11.0f];
+    NSDictionary *sizeAttrib =
+        [NSDictionary dictionaryWithObject:clockFont
+                                    forKey:NSFontAttributeName];
     NSMutableAttributedString *acc =
-        [[NSMutableAttributedString alloc] initWithString:@"["];
+        [[NSMutableAttributedString alloc] initWithString:@"["
+                                               attributes:sizeAttrib];
 
     /////////
     // clock
     /////////
+    NSColor *clockColor =
+        [NPDSession colorForIndex:ClockColor];
+
     NSDictionary *clockAttributes =
         [NSDictionary
-            dictionaryWithObjectsAndKeys: textColors[ClockColor]
-                                , NSForegroundColorAttributeName
-                                , nil];
+            dictionaryWithObjectsAndKeys:
+                  clockColor, NSForegroundColorAttributeName,
+                   clockFont, NSFontAttributeName
+                            , nil];
 
     NSDate *currentDate = [NSDate date];
     NSString *clockString =
         [currentDate descriptionWithCalendarFormat:@"%H:%M:%S" 
-                                        timeZone:nil
+                                          timeZone:nil
                                             locale:nil];
 
     [acc appendString:clockString attributes:clockAttributes];
-    [acc appendString:@"] "];
-    [acc appendString:way];
+    [acc appendString:@"] " attributes:sizeAttrib];
 
+    unichar attachement[] = { NSAttachmentCharacter };
+
+    [acc appendString:[NSString
+                stringWithCharacters:attachement
+                              length:sizeof(attachement)
+                                    /sizeof(unichar)]
+           attributes:[NSDictionary 
+              dictionaryWithObject:way
+                            forKey:NSAttachmentAttributeName]];
     ////////
     // message formatting
     ////////
+
+    // paragraph style to indent multi line messages
+    NSMutableParagraphStyle *pstyle =
+        [[NSParagraphStyle  defaultParagraphStyle]
+            mutableCopy];
+
+    //[pstyle setHeadIndent:5.0f];
+    [pstyle setFirstLineHeadIndent:37.0f];
+
+    NSFont *pfont;
+
+    if (isMessageString)
+        pfont = 
+            [NSFont userFontOfSize:13.0f];
+    else
+        pfont = 
+            [NSFont fontWithName:@"Andale Mono"
+                            size:13.0f];
+
     NSDictionary *attr =
         [NSDictionary
-            dictionaryWithObjectsAndKeys: color
-                                , NSForegroundColorAttributeName
-                                , nil];
+            dictionaryWithObjectsAndKeys:
+                color, NSForegroundColorAttributeName,
+               pstyle, NSParagraphStyleAttributeName,
+                pfont, NSFontAttributeName
+                     , nil];
+
 
     if ( data == nil || [data length] < 2 )
         [acc appendString:@"\n" attributes:attr];
@@ -167,7 +247,6 @@ static void createColors()
                                       ,@"messages"
                                       ,@"A comment");
         [connectionToggleString retain];
-        createColors();
     }
     return self;
 }
@@ -188,7 +267,8 @@ static void createColors()
 {
     [super awakeFromNib];
     [txtDialogView
-        setBackgroundColor:textColors[ProtocolBackgroundColor]];
+        setBackgroundColor:
+            [NPDSession colorForIndex:ProtocolBackgroundColor]];
 
     logString = [[txtDialogView textStorage] retain];
     
@@ -345,8 +425,10 @@ static void createColors()
     NSString *val = [snip snippetText];
     [connection sendData:val];
     [self appendUpdateLog:val
-                withSense:@"> "
-                 andColor:textColors[ SentColor ]];
+                withSense:[NPDSession imageForIndex:ImageTo]
+                isMessage:NO
+                 andColor:
+                    [NPDSession colorForIndex:SentColor]];
 }
 
 - (IBAction)connectTo:(id)sender
@@ -392,16 +474,18 @@ static void createColors()
                                     [sender stringValue] ];
     [connection sendData:val];
     [self appendUpdateLog:val
-                withSense:@"> "
-                 andColor:textColors[ SentColor ]];
+                withSense:[NPDSession imageForIndex:ImageTo]
+                isMessage:NO
+                 andColor:[NPDSession colorForIndex:SentColor]];
     [sender setStringValue:@""];
 }
 
 - (void)connectionInformation:(NSString*)info
 {
     [self appendUpdateLog:info
-                withSense:@"- "
-                 andColor:textColors[ InfoColor ]];
+                withSense:[NPDSession imageForIndex:ImageInfo]
+                isMessage:YES
+                 andColor:[NPDSession colorForIndex:InfoColor]];
 }
 
 - (IBAction)clearLogView:(id)sender
@@ -413,8 +497,9 @@ static void createColors()
 - (void)receivedData:(NSString*)data
 {
     [self appendUpdateLog:data 
-                withSense:@"< "
-                 andColor:textColors[ ReceivedColor ]];
+                withSense:[NPDSession imageForIndex:ImageFrom]
+                isMessage:NO
+                 andColor:[NPDSession colorForIndex:ReceivedColor]];
 }
 
 - (void)disconnect
@@ -429,8 +514,9 @@ static void createColors()
 - (void)endOfConnection:(NSString*)text
 {
     [self appendUpdateLog:text
-                withSense:@"- "
-                 andColor:textColors[InfoColor]];
+                withSense:[NPDSession imageForIndex:ImageInfo]
+                isMessage:YES
+                 andColor:[NPDSession colorForIndex:InfoColor]];
 
     [self disconnect];
     [connection release];
@@ -440,8 +526,9 @@ static void createColors()
 - (void)connectionError:(NSString*)errorText
 {
     [self appendUpdateLog:errorText
-                withSense:@"! "
-                 andColor:textColors[ErrorColor]];
+                withSense:[NPDSession imageForIndex:ImageInfo]
+                isMessage:YES
+                 andColor:[NPDSession colorForIndex:ErrorColor]];
 
     [connection release];
     connection = nil;
