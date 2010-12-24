@@ -27,6 +27,7 @@ typedef enum ImageIndice_t
     ImageTo,
     ImageFrom,
     ImageInfo,
+    ImageError,
 
     LastImage
 } ImageIndice;
@@ -99,9 +100,14 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
 
     if (!initialized)
     {
-        images[ImageTo] = [NPDSession loadImageFromBundle:@"icon-To"];
-        images[ImageFrom] = [NPDSession loadImageFromBundle:@"icon-From"];
-        images[ImageInfo] = [NPDSession loadImageFromBundle:@"icon-info"];
+        images[ImageTo] =
+            [NPDSession loadImageFromBundle:@"icon-To"];
+        images[ImageFrom] =
+            [NPDSession loadImageFromBundle:@"icon-From"];
+        images[ImageInfo] =
+            [NPDSession loadImageFromBundle:@"icon-info"];
+        images[ImageError] =
+            [NPDSession loadImageFromBundle:@"icon-error"];
         initialized = YES;
     }
 
@@ -531,7 +537,7 @@ static inline NSColor* colorOfRgb( int r, int g, int b )
 - (void)connectionError:(NSString*)errorText
 {
     [self appendUpdateLog:errorText
-                withSense:[NPDSession imageForIndex:ImageInfo]
+                withSense:[NPDSession imageForIndex:ImageError]
                 isMessage:YES
                  andColor:[NPDSession colorForIndex:ErrorColor]];
 
