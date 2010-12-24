@@ -10,6 +10,10 @@
 		1DDD582C0DA1D0D100B32029 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* MyDocument.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		6181D01812C25C8B005AF97F /* NetDebugIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6181D01712C25C8B005AF97F /* NetDebugIcon.icns */; };
+		6181D11612C3BFFF005AF97F /* NPDSessionWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6181D11512C3BFFF005AF97F /* NPDSessionWindowController.m */; };
+		6181D15812C4BCF2005AF97F /* icon-From.png in Resources */ = {isa = PBXBuildFile; fileRef = 6181D15512C4BCF2005AF97F /* icon-From.png */; };
+		6181D15912C4BCF2005AF97F /* icon-info.png in Resources */ = {isa = PBXBuildFile; fileRef = 6181D15612C4BCF2005AF97F /* icon-info.png */; };
+		6181D15A12C4BCF2005AF97F /* icon-To.png in Resources */ = {isa = PBXBuildFile; fileRef = 6181D15712C4BCF2005AF97F /* icon-To.png */; };
 		61E6EA4512A135E3005A0C48 /* NetworkSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E6EA4412A135E3005A0C48 /* NetworkSender.m */; };
 		61E6EA4812A2B9D1005A0C48 /* NetworkSnippet.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E6EA4712A2B9D1005A0C48 /* NetworkSnippet.m */; };
 		61E6EACA12A2D92E005A0C48 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E6EAC112A2D92E005A0C48 /* NSObject+SBJSON.m */; };
@@ -41,6 +45,11 @@
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		6181CFB712C20F9A005AF97F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		6181D01712C25C8B005AF97F /* NetDebugIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = NetDebugIcon.icns; sourceTree = "<group>"; };
+		6181D11412C3BFFF005AF97F /* NPDSessionWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPDSessionWindowController.h; sourceTree = "<group>"; };
+		6181D11512C3BFFF005AF97F /* NPDSessionWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPDSessionWindowController.m; sourceTree = "<group>"; };
+		6181D15512C4BCF2005AF97F /* icon-From.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-From.png"; sourceTree = "<group>"; };
+		6181D15612C4BCF2005AF97F /* icon-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info.png"; sourceTree = "<group>"; };
+		6181D15712C4BCF2005AF97F /* icon-To.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-To.png"; sourceTree = "<group>"; };
 		61E6EA4312A135E3005A0C48 /* NetworkSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkSender.h; sourceTree = "<group>"; };
 		61E6EA4412A135E3005A0C48 /* NetworkSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkSender.m; sourceTree = "<group>"; };
 		61E6EA4612A2B9D1005A0C48 /* NetworkSnippet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkSnippet.h; sourceTree = "<group>"; };
@@ -126,6 +135,8 @@
 				61E6EA4712A2B9D1005A0C48 /* NetworkSnippet.m */,
 				61E6EB1612A2F44B005A0C48 /* SnippetView.h */,
 				61E6EB1712A2F44B005A0C48 /* SnippetView.m */,
+				6181D11412C3BFFF005AF97F /* NPDSessionWindowController.h */,
+				6181D11512C3BFFF005AF97F /* NPDSessionWindowController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -142,6 +153,9 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6181D15512C4BCF2005AF97F /* icon-From.png */,
+				6181D15612C4BCF2005AF97F /* icon-info.png */,
+				6181D15712C4BCF2005AF97F /* icon-To.png */,
 				6181D01712C25C8B005AF97F /* NetDebugIcon.icns */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				8D15AC360486D014006FF6A4 /* NetDebug-Info.plist */,
@@ -236,6 +250,9 @@
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				61ED7B7112BA69E3004572D1 /* messages.strings in Resources */,
 				6181D01812C25C8B005AF97F /* NetDebugIcon.icns in Resources */,
+				6181D15812C4BCF2005AF97F /* icon-From.png in Resources */,
+				6181D15912C4BCF2005AF97F /* icon-info.png in Resources */,
+				6181D15A12C4BCF2005AF97F /* icon-To.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +273,7 @@
 				61E6EACD12A2D92E005A0C48 /* SBJsonParser.m in Sources */,
 				61E6EACE12A2D92E005A0C48 /* SBJsonWriter.m in Sources */,
 				61E6EB1812A2F44B005A0C48 /* SnippetView.m in Sources */,
+				6181D11612C3BFFF005AF97F /* NPDSessionWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
