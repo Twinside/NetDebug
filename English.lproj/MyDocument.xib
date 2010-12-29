@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="100064"/>
 			<integer value="5"/>
+			<integer value="100064"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1521,9 +1521,9 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwbAAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{533, 212}, {541, 563}}</string>
+					<string>{{595, 320}, {541, 563}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{533, 212}, {541, 563}}</string>
+					<string>{{595, 320}, {541, 563}}</string>
 					<integer value="1"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<integer value="1"/>
